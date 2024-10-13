@@ -1,12 +1,21 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 from dotenv import load_dotenv
-
+from urllib.parse import quote_plus
 load_dotenv()
 
-# MongoDB configuration
-MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017/")
-DB_NAME = "announcements_db"
+# Retrieve the environment variables
+username = os.getenv("MONGODB_USERNAME")
+password = os.getenv("MONGODB_PASSWORD")
+host = os.getenv("MONGODB_HOST")
+db_name = os.getenv("MONGODB_DB")
+
+# URL-encode the username and password
+encoded_username = quote_plus(username)
+encoded_password = quote_plus(password)
+
+# Construct the MongoDB URI
+MONGODB_URI = f"mongodb+srv://{encoded_username}:{encoded_password}@{host}/{db_name}"
 
 async def get_mongo_client():
     """Creates a MongoDB client connection."""
