@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from twilio.rest import Client
-
+from logger_config import logger
 load_dotenv()
 
 
@@ -20,6 +20,7 @@ def send_message(message_body):
             to=to_number,
             body=message_body
         )
-        print(f'Message sent successfully! Message SID: {message.sid}')
+        logger.info(f'Message sent successfully! Message SID: {message.sid}')
     except Exception as e:
-        print(f'Failed to send message: {str(e)}')
+        logger.error(f'Failed to send message: {str(e)}')
+

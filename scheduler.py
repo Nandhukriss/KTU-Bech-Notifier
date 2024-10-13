@@ -1,6 +1,6 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import asyncio
-
+from logger_config import logger
 from check_notification import check_for_new_announcements
 
 def start_scheduler():
@@ -8,11 +8,11 @@ def start_scheduler():
     scheduler = AsyncIOScheduler()
 
     # Schedule the job every 60 minutes (1 hour)
-    scheduler.add_job(check_for_new_announcements, 'interval', seconds=120)
+    scheduler.add_job(check_for_new_announcements, 'interval', seconds=30)
 
     # Start the scheduler
     scheduler.start()
-    print("Scheduler started.")
+    logger.info("Scheduler started.")
 
     # Run the asyncio event loop
     loop = asyncio.get_event_loop()
